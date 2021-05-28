@@ -1,0 +1,39 @@
+# Configuration file for ipython.
+
+c = get_config()
+c.InteractiveShell.colors = "Linux"
+c.InteractiveShellApp.extensions = ['autoreload', "line_profiler"]
+c.InteractiveShellApp.exec_lines = [
+    "%autoreload 2",
+    "%rehashx",
+    "import logging",
+    "import os",
+    "import pickle",
+    "import dask.dataframe as dd",
+    "import numpy as np",
+    "import pandas as pd",
+    "from pandas import DataFrame",
+    "from pandas import Series",
+    "randn = np.random.randn",
+    "from __future__ import division",
+    "pd.options.display.max_columns=500",
+    "logging.basicConfig(level=logging.INFO)",
+    "np.set_printoptions(suppress=True)",
+    "pd.options.display.float_format = '{:20,.6f}'.format"
+]
+
+jupyter_lines = """
+from IPython import get_ipython
+ip = get_ipython()
+if ip.has_trait("kernel"):
+    %matplotlib inline
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import pylab
+    pylab.rcParams["figure.figsize"] = (12., 6.)
+"""
+
+c.InteractiveShellApp.exec_lines.append(jupyter_lines)
+c.NotebookApp.notebook_dir = "/home/ubuntu/projects"
+
+c.InteractiveShell.cache_size = 0
